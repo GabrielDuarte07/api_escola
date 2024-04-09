@@ -30,6 +30,10 @@ export class CreateStudent1712519341642 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "password",
+            type: "varchar",
+          },
+          {
             name: "birth_date",
             type: "timestamp",
           },
