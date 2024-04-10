@@ -27,6 +27,9 @@ class Student {
   @Column("varchar")
   password: string;
 
+  @Column("varchar")
+  avatar: string;
+
   @Column("timestamp")
   birth_date: Date;
 

@@ -12,7 +12,7 @@ class Type_Student {
   id: string;
 
   @Column("varchar")
-  name: string;
+  type: string;
 
   @CreateDateColumn()
   created_at: Date;
