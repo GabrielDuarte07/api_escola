@@ -1,3 +1,6 @@
 export default class AppError {
-  constructor(private msg: Readonly<string>) {}
+  constructor(
+    public code: Readonly<number>,
+    public msg: Readonly<string>,
+  ) {}
 }
