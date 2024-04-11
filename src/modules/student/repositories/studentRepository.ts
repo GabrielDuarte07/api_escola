@@ -4,7 +4,10 @@ import { Like } from "typeorm";
 
 const studentRepository = dataSource.getRepository(Student).extend({
   findById: async function (id: string): Promise<Student | null> {
-    const student = await this.findOne({ where: { id } });
+    const student = await this.findOne({
+      where: { id },
+      relations: { type_student: true },
+    });
     return student;
   },
   findByName: async function (name: string): Promise<Student[]> {
