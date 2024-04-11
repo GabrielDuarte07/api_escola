@@ -14,5 +14,14 @@ typesRoutes.post(
   }),
   TypeStudentController.create,
 );
+typesRoutes.delete(
+  "/:id",
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  TypeStudentController.delete,
+);
 
 export default typesRoutes;

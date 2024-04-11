@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import CreateTypeStudent from "@student/services/CreateTypeStudent";
 import ReadTypeStudent from "@student/services/ReadTypeStudent";
+import DeleteTypeStudent from "@student/services/DeleteTypeStudent";
 
 export default class TypeStudentController {
   static async create(req: Request, res: Response): Promise<Response> {
@@ -19,5 +20,12 @@ export default class TypeStudentController {
     const types = await typeObj.execute();
 
     return res.status(200).json(types);
+  }
+
+  static async delete(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const typeObj = new DeleteTypeStudent();
+    const removed = await typeObj.execute(id);
+    return res.status(200).json(removed);
   }
 }

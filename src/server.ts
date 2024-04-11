@@ -6,19 +6,22 @@ import mainRoutes from "./index.routes";
 import { Request, Response, NextFunction } from "express";
 import AppError from "@error/AppError";
 import { errors } from "celebrate";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(mainRoutes);
 app.use(errors());
+app.use(cors());
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {
-    res.status(err.code).json(err);
+    res.status(err.code).json({ error: err.msg });
     return;
   }
-  res.status(500).json(err);
+  //res.status(500).json(err);
+  next(err);
 });
 
 dataSource
