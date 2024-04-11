@@ -15,6 +15,14 @@ const studentRepository = dataSource.getRepository(Student).extend({
     const students = await this.findBy({ name: Like(`%${name}%`) });
     return students;
   },
+  findByEmail: async function (email: string): Promise<Student | null> {
+    const student = await this.findOne({ where: { email } });
+    return student;
+  },
+  findByCPF: async function (CPF: string): Promise<Student | null> {
+    const student = await this.findOne({ where: { CPF } });
+    return student;
+  },
 });
 
 export default studentRepository;

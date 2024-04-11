@@ -14,6 +14,9 @@ class Student {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @Column({ type: "uuid", select: false })
+  type_id: string;
+
   @ManyToOne(() => Type_Student)
   @JoinColumn({ name: "type_id" })
   type_student: Type_Student;
