@@ -7,6 +7,7 @@ import { Request, Response, NextFunction } from "express";
 import AppError from "@error/AppError";
 import { errors } from "celebrate";
 import cors from "cors";
+import { avatarsPath } from "@config/multer";
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(mainRoutes);
 app.use(errors());
 app.use(cors());
+console.log(avatarsPath);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof AppError) {

@@ -1,6 +1,10 @@
 import { Router } from "express";
 import StudentController from "@student/controllers/StudentController";
 import { celebrate, Joi, Segments } from "celebrate";
+import multer from "multer";
+import { diskAvatars } from "@config/multer";
+import AvatarController from "@student/controllers/AvatarController";
+import { extname } from "path";
 
 const studentRoutes = Router();
 
@@ -50,6 +54,25 @@ studentRoutes.patch(
     { abortEarly: false },
   ),
   StudentController.update,
+);
+
+studentRoutes.post(
+  "/avatar/:id",
+  multer({
+    fileFilter(req, file, callback) {
+      const validExt = [".jpg", ".png", ".jpeg", ".gif"];
+      const extFile = extname(file.originalname);
+      req.fileValidationError = "";
+      if (validExt.indexOf(extFile) === -1) {
+        req.fileValidationError = "Avatar file must be an image";
+        callback(null, false);
+      }
+
+      callback(null, true);
+    },
+    storage: diskAvatars,
+  }).single("avatar"),
+  AvatarController.update,
 );
 
 export default studentRoutes;
