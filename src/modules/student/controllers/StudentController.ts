@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import CreateStudent from "@student/services/CreateStudent";
 import ReadStudent from "@student/services/ReadStudent";
 import UpdateStudent from "@student/services/UpdateStudent";
+import LoginStudent from "@student/services/LoginStudent";
 
 export default class StudentController {
   static async index(req: Request, res: Response): Promise<Response> {
@@ -27,5 +28,12 @@ export default class StudentController {
       req.body,
     );
     return res.status(200).json(updatedStudent);
+  }
+
+  static async login(req: Request, res: Response): Promise<Response> {
+    const { email, password } = req.body;
+    const objLogin = new LoginStudent();
+    const logged = await objLogin.execute({ email, password });
+    return res.status(201).json(logged);
   }
 }

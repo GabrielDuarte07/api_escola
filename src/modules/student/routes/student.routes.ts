@@ -62,10 +62,8 @@ studentRoutes.post(
     fileFilter(req, file, callback) {
       const validExt = [".jpg", ".png", ".jpeg", ".gif"];
       const extFile = extname(file.originalname);
-      req.fileValidationError = "";
       if (validExt.indexOf(extFile) === -1) {
-        req.fileValidationError = "Avatar file must be an image";
-        callback(null, false);
+        return callback(null, false);
       }
 
       callback(null, true);
@@ -73,6 +71,17 @@ studentRoutes.post(
     storage: diskAvatars,
   }).single("avatar"),
   AvatarController.update,
+);
+
+studentRoutes.post(
+  "/login",
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+      password: Joi.string().required(),
+    },
+  }),
+  StudentController.login,
 );
 
 export default studentRoutes;

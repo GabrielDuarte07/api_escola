@@ -6,16 +6,7 @@ import { avatarsPath } from "@config/multer";
 import { resolve } from "path";
 
 export default class UpdateAvatar {
-  async execute(
-    validtionError: string,
-    id: string,
-    fileName: string,
-  ): Promise<Student> {
-    if (validtionError) {
-      const fileExists = await fs.promises.stat(resolve(avatarsPath, fileName));
-      if (fileExists) await fs.promises.unlink(resolve(avatarsPath, fileName));
-      throw new AppError(400, "Avatar photo must be an image");
-    }
+  async execute(id: string, fileName: string): Promise<Student> {
     const studentExists = await studentRepository.findById(id);
     if (!studentExists) throw new AppError(404, "Student not found");
 
