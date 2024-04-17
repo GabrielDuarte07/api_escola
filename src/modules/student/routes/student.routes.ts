@@ -5,10 +5,11 @@ import multer from "multer";
 import { diskAvatars } from "@config/multer";
 import AvatarController from "@student/controllers/AvatarController";
 import { extname } from "path";
+import isAuthenticated from "../../../middlewares/isAuthenticated";
 
 const studentRoutes = Router();
 
-studentRoutes.get("/", StudentController.index);
+studentRoutes.get("/", isAuthenticated, StudentController.index);
 studentRoutes.post(
   "/",
   celebrate(

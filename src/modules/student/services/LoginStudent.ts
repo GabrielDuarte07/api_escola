@@ -22,8 +22,8 @@ export default class LoginStudent {
     if (!compared) throw new AppError(400, "wrong password");
 
     const token = jwt.sign(
-      { id: studentEmail.id },
-      String(process.env.JWT_TOKEN),
+      { id: studentEmail.id, name: studentEmail.name },
+      String(process.env.JWT_SECRET),
       { expiresIn: "1d" },
     );
 
